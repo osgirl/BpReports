@@ -383,16 +383,16 @@ maximoDataSet.open();
 
 var sqlText = new String();
 
-sqlText = " select wonum,siteid,location,classstructureid,  "
-+ " (select person.displayname from person where person.personid = (select jobplan.supervisor from jobplan where jobplan.jpnum=workorder.jpnum and jobplan.siteid=workorder.siteid and rownum<2)) as owner,  "
-+ " (select asset.priority from asset where asset.assetnum=workorder.assetnum and asset.siteid=workorder.siteid and rownum<2) as priority,  "
-+ " (select site.description from site where site.siteid=workorder.siteid and rownum<2) as sdescription,  "
-+ " (select worktype.wtypedesc from worktype where worktype.worktype=workorder.worktype and rownum<2) as worktype,  "
-+ " coalesce( (select min(priority) from asset where asset.assetnum=workorder.assetnum and asset.siteid=workorder.siteid),(select min(priority) from asset where asset.location=workorder.location and asset.siteid=workorder.siteid and workorder.wopriority=5), (select asset.priority from asset where asset.assetnum=workorder.assetnum and asset.siteid=workorder.siteid and rownum<2)) as minpriority,  "
-+ " (select description from jobplan where jobplan.jpnum=workorder.jpnum ) as jdescription,"
+sqlText = " select wonum,siteid,location,classstructureid,   "
++ " (select person.displayname from person where person.personid = (select top 1 jobplan.supervisor from jobplan, workorder where jobplan.jpnum=workorder.jpnum and jobplan.siteid=workorder.siteid )) as owner,  "
++ " (select top 1 asset.priority from asset, workorder where asset.assetnum=workorder.assetnum and asset.siteid=workorder.siteid ) as priority,   "
++ " (select top 1 site.description from site, workorder where site.siteid=workorder.siteid ORDER BY description desc  ) as sdescription,  "
++ " (select top 1 worktype.wtypedesc from worktype, workorder where worktype.worktype=workorder.worktype ) as worktype,  "
++ " coalesce( (select min(priority) from asset, workorder where asset.assetnum=workorder.assetnum and asset.siteid=workorder.siteid),(select min(priority) from asset, workorder where asset.location=workorder.location and asset.siteid=workorder.siteid and workorder.wopriority=5), (select min(asset.priority) from asset, workorder where asset.assetnum=workorder.assetnum and asset.siteid=workorder.siteid)) as minpriority,    "
++ " (select top 1 jobplan.description from jobplan, workorder where jobplan.jpnum=workorder.jpnum ) as jdescription, "
 + " targstartdate,targcompdate,assetnum,description as description,wopriority,jpnum   "
 + " from workorder  "
-+ " where workorder.worktype='100' and workorder.wopriority=10 and workorder.parent is null and workorder.assetnum is not null and workorder.location is not null and orgid='BP-TURK' and " + params["where"]
++ " where workorder.worktype='100' and workorder.wopriority=10 and workorder.parent = 'NULL' and workorder.assetnum is not null and workorder.location is not null and orgid='YARORG' and " + params["where"]
 ;
 
 maximoDataSet.setQuery(sqlText);]]></method>
