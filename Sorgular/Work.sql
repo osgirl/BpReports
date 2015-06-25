@@ -1,0 +1,2 @@
+select jp.jpnum, jp.description, jp.jpduration, jp.jp01, jp.siteid, jp.orgid , jt.jpnum, jt.jptask, jt.description, JT.taskduration, jt.jb01, jt.periyot from maximo.jobplan jp, maximo.jobtask jt where status='ACTIVE' and jp.siteid='BOYAHANE' 
+and jp.jpnum in (select jpnum from maximo.pm where status='ACTIVE' and jpnum is not null and siteid='BOYAHANE') and jp.siteid=jt.siteid and jp.jpnum=jt.jpnum order by jp.jpnum, jt.jptask

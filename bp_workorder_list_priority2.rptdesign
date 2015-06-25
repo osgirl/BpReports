@@ -1,0 +1,2064 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
+    <property name="comments">IBM Confidential
+
+OCO Source Materials
+
+5724-M19
+
+(C) COPYRIGHT IBM CORP. 2006
+
+The source code for this program is not published or otherwise
+divested of its trade secrets, irrespective of what has been
+deposited with the U.S. Copyright Office.</property>
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.2.v20120213 Build &lt;3.7.2.v20120214-1408></property>
+    <html-property name="description">This template will create a report with one or more subreports, each having different data fields.</html-property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+
+
+mxReportScriptContext.setDefaultLogLevel("DEBUG");
+mxReportScriptContext.setDefaultLogFile("c:/temp/testdyn.log");]]></method>
+    <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <text-property name="displayName">Tivoli Maximo Subreport Template</text-property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="where" id="25">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="appname" id="731">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="733">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="732">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="dataSet" id="65">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">wonum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">siteid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">reportdate</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">schedstart</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">schedfinish</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">owner</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">wopriority</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">jpnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">route</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">jdescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">location</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">assetnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">worktype</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">sdescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">pdescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">priority</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">minpriority</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">wonum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">reportdate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">schedstart</property>
+                </structure>
+                <structure>
+                    <property name="columnName">schedfinish</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">owner</property>
+                </structure>
+                <structure>
+                    <property name="columnName">wopriority</property>
+                </structure>
+                <structure>
+                    <property name="columnName">jpnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">route</property>
+                </structure>
+                <structure>
+                    <property name="columnName">location</property>
+                </structure>
+                <structure>
+                    <property name="columnName">assetnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">worktype</property>
+                </structure>
+                <structure>
+                    <property name="columnName">sdescription</property>
+                </structure>
+                <structure>
+                    <property name="columnName">pdescription</property>
+                </structure>
+                <structure>
+                    <property name="columnName">priority</property>
+                </structure>
+                <structure>
+                    <property name="columnName">minpriority</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">wonum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">siteid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">reportdate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">schedstart</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">schedfinish</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">owner</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">wopriority</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">jpnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">route</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">jdescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">location</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">assetnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">worktype</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">sdescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">pdescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">priority</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">minpriority</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+
+// Add query to sqlText variable.
+sqlText = "select top 4 wonum,worktype,owner,siteid,location,priority,sdescription,pdescription,minpriority,reportdate,schedstart,schedfinish,assetnum,description,wopriority,route,jpnum from"
++ " (select workorder.siteid,wonum,workorder.location,   "
++ " (select worktype.wtypedesc from worktype where worktype.worktype = workorder.worktype and worktype.orgid = workorder.orgid ) as worktype,  "
++ " (select jobplan.supervisor from jobplan where jobplan.jpnum=workorder.jpnum and jobplan.siteid=workorder.siteid ) as owner,  "
++ " (select top 2 asset.priority from asset where asset.assetnum=workorder.assetnum) as priority,  "
++ " (select top 2 site.description from site where site.siteid=workorder.siteid ) as sdescription,  "
++ " (select top 2 pm.description from pm where pm.pmnum=workorder.pmnum) as pdescription,  "
++ " coalesce( (select min(priority) from asset where assetnum in (select assetnum from route_stop where route=workorder.route)),wopriority) as minpriority,  "
++ " ltrim(convert(varchar(10), getdate(),120)) as reportdate,  "
++ " ltrim(Convert(varchar(10),coalesce(targstartdate, getdate(),120))) as schedstart,  "
++ " ltrim(Convert(varchar(10),coalesce(targcompdate, getdate(), 120))) as schedfinish,  "
++ " workorder.assetnum, workorder.description as description, workorder.wopriority, workorder.route, workorder.jpnum   "
++ " from workorder  "
++ " where wopriority=2 and siteid like 'YARIMCA' and 1=1 and " + params["where"]
++ " ) workorder  "
++ " group by wonum,worktype,owner,siteid,location,priority,sdescription,pdescription,minpriority,reportdate,schedstart,schedfinish,assetnum,description,wopriority,route,jpnum "
+
+
+
+//"select workorder.worktype,workorder.owner,workorder.siteid,wonum,workorder.location, "
+//+ " (select asset.priority from asset where asset.assetnum=workorder.assetnum and rownum<2) as priority, "
+//+ " (select site.description from site where site.siteid=workorder.siteid and rownum<2) as sdescription, "
+//+ " (select pm.description from pm where pm.pmnum=workorder.pmnum and rownum<2) as pdescription,"
+//+ "  (select min(priority) from asset where assetnum in (select assetnum from route_stop where route=workorder.route)) as minpriority, "
+//+"ltrim(to_char(sysdate,'DD'))||'/'||ltrim(to_char(sysdate,'MM'))||'/'||ltrim(to_char(sysdate,'YYYY')) as reportdate,"
+//+"ltrim(to_char(coalesce(targstartdate,sysdate),'DD'))||'/'||ltrim(to_char(coalesce(targstartdate,sysdate),'MM'))||'/'||ltrim(to_char(coalesce(targstartdate,sysdate),'YYYY')) as schedstart,"
+//+"ltrim(to_char(coalesce(targcompdate,sysdate),'DD'))||'/'||ltrim(to_char(coalesce(targcompdate,sysdate),'MM'))||'/'||ltrim(to_char(coalesce(targcompdate,sysdate),'YYYY')) as schedfinish,"
+//+"workorder.assetnum,workorder.description as description,workorder.wopriority,workorder.route,workorder.jpnum "
+//+" from workorder left outer join site on site.siteid=workorder.siteid left outer join pm on pm.pmnum=workorder.pmnum left outer  join asset on asset.assetnum=workorder.assetnum "
+//+ " where wonum='TR671447' and " + params["where"]
+//+ " group by workorder.siteid,wonum,workorder.worktype,workorder.location,reportdate,schedfinish,schedstart,workorder.description,wopriority,workorder.route,workorder.jpnum,workorder.assetnum,workorder.owner,asset.priority,site.description,pm.description " 
+
+;
+
+maximoDataSet.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["wonum"] = maximoDataSet.getString("wonum");	
+row["worktype"] = maximoDataSet.getString("worktype");
+row["siteid"] = maximoDataSet.getString("siteid");
+row["reportdate"] = maximoDataSet.getString("reportdate");
+row["schedstart"] = maximoDataSet.getString("schedstart");
+row["schedfinish"] = maximoDataSet.getString("schedfinish");
+row["description"] = maximoDataSet.getString("description");
+
+row["owner"] = maximoDataSet.getString("owner");
+row["wopriority"] = maximoDataSet.getString("wopriority");
+row["jpnum"] = maximoDataSet.getString("jpnum");
+row["route"] = maximoDataSet.getString("route");
+row["location"] = maximoDataSet.getString("location");
+
+row["assetnum"] = maximoDataSet.getString("assetnum");
+
+row["priority"] = maximoDataSet.getString("priority");
+row["sdescription"] = maximoDataSet.getString("sdescription");
+row["pdescription"] = maximoDataSet.getString("pdescription");
+row["minpriority"] = maximoDataSet.getString("minpriority");
+return (true);
+]]></method>
+        </script-data-set>
+        <script-data-set name="jpseqdataset" id="713">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">jpnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">jdescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">jpnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">jdescription</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">jpnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">jdescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[jpseqdataset = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+jpseqdataset.open();
+	
+var sqlText = " select jobplan.description as jdescription,jobtask.jpnum,jobtask.description as description from jobplan join jobtask on jobplan.jobplanid=jobtask.jobplanid "
++ " and jobplan.jpnum = '" +rows[0]["jpnum"]+"' and jobplan.siteid= '" +rows[0]["siteid"]+"'"
+jpseqdataset.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!jpseqdataset.fetch())
+	return (false);
+	row["description"] = jpseqdataset.getString("description");
+	row["jpnum"] = jpseqdataset.getString("jpnum");
+	row["jdescription"] = jpseqdataset.getString("jdescription");
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="routedataset" id="2107">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">rroute</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">rlocation</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">rassetnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">radescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">aldescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">rdescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">priority</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">rroute</property>
+                </structure>
+                <structure>
+                    <property name="columnName">rlocation</property>
+                </structure>
+                <structure>
+                    <property name="columnName">rassetnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">radescription</property>
+                </structure>
+                <structure>
+                    <property name="columnName">aldescription</property>
+                </structure>
+                <structure>
+                    <property name="columnName">rdescription</property>
+                </structure>
+                <structure>
+                    <property name="columnName">priority</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">rroute</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">rlocation</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">rassetnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">radescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">aldescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">rdescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">priority</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[routedataset = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+routedataset.open();
+	
+ sqlTextt = " select   (select top 2 priority from asset where asset.assetnum=route_stop.assetnum) as priority ,  "
++ " (select top 2 description from asset where asset.assetnum=route_stop.assetnum )as radescription, "
++ " route_stop.route as rroute,route_stop.assetnum as rassetnum, " 
++ " (select description from locations where locations.siteid = route_stop.siteid and location = "
++ " coalesce(route_stop.location,(select top 2 asset.location from asset where assetnum=route_stop.assetnum ))) as rlocation,  "
++ "  (select longdescription.ldtext from longdescription where longdescription.ldkey=  (select top 2 assetid from asset where assetnum=route_stop.assetnum ) and ldownertable='ASSET' ) as aldescription,  "
++ " (select top 2 routes.description from routes where routes.route=route_stop.route) as rdescription  "
+//+ " (select routes.description from routes where routes.route=route_stop.route and rownum<2) as rdescription "
++ "  from route_stop   "
++ " where route_stop.route='" +rows[0]["route"]+"' and route_stop.siteid= '" +rows[0]["siteid"]+"'  order by priority desc"
+routedataset.setQuery(sqlTextt);
+
+
+
+// sqlTextt = " select   (select priority from asset where asset.assetnum=route_stop.assetnum and rownum<2) as priority ,  "
+//+ " (select description from asset where asset.assetnum=route_stop.assetnum and rownum<2 )as radescription, "
+//+ " route_stop.route as rroute,route_stop.assetnum as rassetnum, " 
+//+ " (select description from locations where locations.siteid = route_stop.siteid and location = "
+//+ " coalesce(route_stop.location,(select asset.location from asset where assetnum=route_stop.assetnum and rownum<2))) as rlocation,  "
+//+ "  (select longdescription.ldtext from longdescription where longdescription.ldkey=  (select assetid from asset where assetnum=route_stop.assetnum and rownum<2) and ldownertable='ASSET' ) as aldescription,  "
+//+ " (select routes.description from routes where routes.route=route_stop.route and rownum<2) as rdescription  "
+////+ " (select routes.description from routes where routes.route=route_stop.route and rownum<2) as rdescription "
+//+ "  from route_stop   "
+//+ " where route_stop.route='" +rows[0]["route"]+"' and route_stop.siteid= '" +rows[0]["siteid"]+"'  order by priority desc"
+//routedataset.setQuery(sqlTextt);]]></method>
+            <method name="fetch"><![CDATA[if (!routedataset.fetch())
+	return (false);
+	row["rroute"] = routedataset.getString("rroute");
+	row["priority"] = routedataset.getString("priority");
+	row["rassetnum"] = routedataset.getString("rassetnum");
+	row["rlocation"] = routedataset.getString("rlocation");
+	row["radescription"] = routedataset.getString("radescription");
+	row["rdescription"] = routedataset.getString("rdescription");
+	row["aldescription"] = routedataset.getString("aldescription");
+return (true);]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="crosstab-cell" id="829">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="830">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="maximoLandscape" id="47" extends="MaximoSystemLibrary.maximoLandscape">
+            <overridden-values>
+                <ref-entry baseId="304" name="NewGrid2" id="304"/>
+                <ref-entry baseId="305" id="305"/>
+                <ref-entry baseId="306" id="306"/>
+                <ref-entry baseId="307" id="307"/>
+                <ref-entry baseId="308" id="308"/>
+                <ref-entry baseId="340" name="NewImage1" id="340"/>
+                <ref-entry baseId="309" id="309"/>
+                <ref-entry baseId="310" name="NewImage" id="310"/>
+                <ref-entry baseId="322" name="NewGrid" id="322"/>
+                <ref-entry baseId="323" id="323"/>
+                <ref-entry baseId="324" id="324"/>
+                <ref-entry baseId="325" id="325"/>
+                <ref-entry baseId="326" id="326"/>
+                <ref-entry baseId="328" name="NewText" id="328"/>
+                <ref-entry baseId="327" id="327"/>
+                <ref-entry baseId="329" name="NewGrid1" id="329"/>
+                <ref-entry baseId="330" id="330"/>
+                <ref-entry baseId="331" id="331"/>
+                <ref-entry baseId="332" id="332"/>
+                <ref-entry baseId="333" id="333"/>
+                <ref-entry baseId="334" id="334"/>
+                <ref-entry baseId="335" name="NewAutoText" id="335"/>
+                <ref-entry baseId="336" id="336"/>
+                <ref-entry baseId="337" name="NewText1" id="337"/>
+                <ref-entry baseId="338" id="338"/>
+                <ref-entry baseId="339" name="NewAutoText1" id="339"/>
+            </overridden-values>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="7">
+            <property name="width">100%</property>
+            <property name="dataSet">dataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">wonum</property>
+                    <expression name="expression">dataSetRow["wonum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteid</property>
+                    <expression name="expression">dataSetRow["siteid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">reportdate</property>
+                    <expression name="expression">dataSetRow["reportdate"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">schedstart</property>
+                    <expression name="expression">dataSetRow["schedstart"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">schedfinish</property>
+                    <expression name="expression">dataSetRow["schedfinish"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <expression name="expression">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">owner</property>
+                    <expression name="expression">dataSetRow["owner"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">wopriority</property>
+                    <expression name="expression">dataSetRow["wopriority"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">jpnum</property>
+                    <expression name="expression">dataSetRow["jpnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">route</property>
+                    <expression name="expression">dataSetRow["route"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">jdescription</property>
+                    <expression name="expression">dataSetRow["jdescription"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">location</property>
+                    <expression name="expression">dataSetRow["location"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">assetnum</property>
+                    <expression name="expression">dataSetRow["assetnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">worktype</property>
+                    <expression name="expression">dataSetRow["worktype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">sdescription</property>
+                    <expression name="expression">dataSetRow["sdescription"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">pdescription</property>
+                    <expression name="expression">dataSetRow["pdescription"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">priority</property>
+                    <expression name="expression">dataSetRow["priority"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">minpriority</property>
+                    <expression name="expression">dataSetRow["minpriority"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">1</property>
+            <column id="83"/>
+            <column id="79"/>
+            <column id="91"/>
+            <column id="87"/>
+            <column id="17"/>
+            <column id="18"/>
+            <group id="2172">
+                <property name="groupName">NewTableGroup1</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["sdescription"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["sdescription"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="2188">
+                <property name="groupName">NewTableGroup2</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["pdescription"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["pdescription"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="2204">
+                <property name="groupName">NewTableGroup3</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["reportdate"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["reportdate"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="2220">
+                <property name="groupName">NewTableGroup4</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["schedstart"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["schedstart"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="2236">
+                <property name="groupName">NewTableGroup5</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["schedfinish"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["schedfinish"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="2252">
+                <property name="groupName">NewTableGroup6</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["owner"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["owner"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="2268">
+                <property name="groupName">NewTableGroup7</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["worktype"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["worktype"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="2284">
+                <property name="groupName">NewTableGroup8</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["wonum"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["wonum"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="2300">
+                <property name="groupName">NewTableGroup9</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["minpriority"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["minpriority"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+                <header>
+                    <row id="2316">
+                        <cell id="2317">
+                            <property name="colSpan">6</property>
+                            <property name="rowSpan">1</property>
+                            <grid id="2323">
+                                <property name="borderBottomColor">#000000</property>
+                                <property name="borderBottomStyle">solid</property>
+                                <property name="borderBottomWidth">1px</property>
+                                <property name="borderTopColor">#000000</property>
+                                <property name="borderTopStyle">solid</property>
+                                <property name="borderTopWidth">1px</property>
+                                <property name="width">100%</property>
+                                <column id="2324">
+                                    <property name="width">10%</property>
+                                </column>
+                                <column id="2325">
+                                    <property name="width">50%</property>
+                                </column>
+                                <column id="2326">
+                                    <property name="width">40%</property>
+                                </column>
+                                <row id="2327">
+                                    <cell id="2328">
+                                        <property name="borderRightColor">#000000</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">1px</property>
+                                        <image id="2331">
+                                            <property name="height">70px</property>
+                                            <property name="width">54px</property>
+                                            <property name="source">embed</property>
+                                            <property name="imageName">bplogo.gif</property>
+                                        </image>
+                                    </cell>
+                                    <cell id="2329">
+                                        <property name="borderRightColor">#000000</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">1px</property>
+                                        <data id="2187">
+                                            <property name="fontSize">x-large</property>
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">sdescription</property>
+                                        </data>
+                                        <data id="2203">
+                                            <property name="fontSize">large</property>
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">pdescription</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="2330">
+                                        <grid id="2533">
+                                            <property name="fontWeight">bold</property>
+                                            <property name="width">100%</property>
+                                            <column id="2534"/>
+                                            <column id="2536"/>
+                                            <row id="2541">
+                                                <cell id="2542">
+                                                    <label id="2562">
+                                                        <property name="fontSize">small</property>
+                                                        <property name="textAlign">left</property>
+                                                        <text-property name="text">Report Date :</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="2544">
+                                                    <data id="2567">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <property name="resultSetColumn">reportdate</property>
+                                                    </data>
+                                                </cell>
+                                            </row>
+                                            <row id="2545">
+                                                <cell id="2546">
+                                                    <label id="2563">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <text-property name="text">Scheduled Start :</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="2548">
+                                                    <data id="2569">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <property name="resultSetColumn">schedstart</property>
+                                                    </data>
+                                                </cell>
+                                            </row>
+                                            <row id="2549">
+                                                <cell id="2550">
+                                                    <label id="2564">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <text-property name="text">Scheduled Finish :</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="2552">
+                                                    <data id="2570">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <property name="resultSetColumn">schedfinish</property>
+                                                    </data>
+                                                </cell>
+                                            </row>
+                                            <row id="2553">
+                                                <cell id="2554">
+                                                    <label id="2583">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <text-property name="text">Work Type :</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="2556">
+                                                    <data id="2572">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <property name="resultSetColumn">worktype</property>
+                                                    </data>
+                                                </cell>
+                                            </row>
+                                            <row id="2557">
+                                                <cell id="2558">
+                                                    <label id="2565">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <text-property name="text">Owner :</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="2560">
+                                                    <data id="2571">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <property name="resultSetColumn">owner</property>
+                                                    </data>
+                                                </cell>
+                                            </row>
+                                            <row id="2593">
+                                                <cell id="2594">
+                                                    <label id="2561">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <text-property name="text">Work Order Number :</text-property>
+                                                    </label>
+                                                </cell>
+                                                <cell id="2596">
+                                                    <data id="2568">
+                                                        <property name="backgroundAttachment">scroll</property>
+                                                        <property name="backgroundPositionX">0%</property>
+                                                        <property name="backgroundPositionY">0%</property>
+                                                        <property name="backgroundRepeat">repeat</property>
+                                                        <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                                        <property name="fontSize">small</property>
+                                                        <property name="fontWeight">normal</property>
+                                                        <property name="fontStyle">normal</property>
+                                                        <property name="fontVariant">normal</property>
+                                                        <property name="color">#000000</property>
+                                                        <property name="textLineThrough">none</property>
+                                                        <property name="textOverline">none</property>
+                                                        <property name="textUnderline">none</property>
+                                                        <property name="borderBottomColor">black</property>
+                                                        <property name="borderBottomStyle">none</property>
+                                                        <property name="borderBottomWidth">medium</property>
+                                                        <property name="borderLeftColor">black</property>
+                                                        <property name="borderLeftStyle">none</property>
+                                                        <property name="borderLeftWidth">medium</property>
+                                                        <property name="borderRightColor">black</property>
+                                                        <property name="borderRightStyle">none</property>
+                                                        <property name="borderRightWidth">medium</property>
+                                                        <property name="borderTopColor">black</property>
+                                                        <property name="borderTopStyle">none</property>
+                                                        <property name="borderTopWidth">medium</property>
+                                                        <property name="marginTop">0pt</property>
+                                                        <property name="marginLeft">0pt</property>
+                                                        <property name="marginBottom">0pt</property>
+                                                        <property name="marginRight">0pt</property>
+                                                        <property name="paddingTop">1pt</property>
+                                                        <property name="paddingLeft">1pt</property>
+                                                        <property name="paddingBottom">1pt</property>
+                                                        <property name="paddingRight">1pt</property>
+                                                        <property name="textAlign">left</property>
+                                                        <property name="letterSpacing">normal</property>
+                                                        <property name="lineHeight">normal</property>
+                                                        <property name="orphans">2</property>
+                                                        <property name="textTransform">none</property>
+                                                        <property name="whiteSpace">normal</property>
+                                                        <property name="widows">2</property>
+                                                        <property name="wordSpacing">normal</property>
+                                                        <property name="display">block</property>
+                                                        <property name="pageBreakAfter">auto</property>
+                                                        <property name="pageBreakBefore">auto</property>
+                                                        <property name="pageBreakInside">auto</property>
+                                                        <property name="showIfBlank">false</property>
+                                                        <property name="canShrink">false</property>
+                                                        <property name="resultSetColumn">wonum</property>
+                                                    </data>
+                                                </cell>
+                                            </row>
+                                        </grid>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                    <row id="2386">
+                        <list-property name="highlightRules">
+                            <structure>
+                                <property name="operator">eq</property>
+                                <property name="backgroundColor">#FF0000</property>
+                                <expression name="testExpr">row["minpriority"]</expression>
+                                <simple-property-list name="value1">
+                                    <value>1</value>
+                                </simple-property-list>
+                            </structure>
+                            <structure>
+                                <property name="operator">eq</property>
+                                <property name="backgroundColor">#FFA500</property>
+                                <expression name="testExpr">row["minpriority"]</expression>
+                                <simple-property-list name="value1">
+                                    <value>2</value>
+                                </simple-property-list>
+                            </structure>
+                            <structure>
+                                <property name="operator">eq</property>
+                                <property name="backgroundColor">#FFFF00</property>
+                                <expression name="testExpr">row["minpriority"]</expression>
+                                <simple-property-list name="value1">
+                                    <value>3</value>
+                                </simple-property-list>
+                            </structure>
+                            <structure>
+                                <property name="operator">eq</property>
+                                <property name="backgroundColor">#0000FF</property>
+                                <expression name="testExpr">row["minpriority"]</expression>
+                                <simple-property-list name="value1">
+                                    <value>4</value>
+                                </simple-property-list>
+                            </structure>
+                            <structure>
+                                <property name="operator">eq</property>
+                                <property name="backgroundColor">#008000</property>
+                                <expression name="testExpr">row["minpriority"]</expression>
+                                <simple-property-list name="value1">
+                                    <value>5</value>
+                                </simple-property-list>
+                            </structure>
+                        </list-property>
+                        <cell id="2387">
+                            <property name="colSpan">6</property>
+                            <property name="rowSpan">1</property>
+                            <data id="2393">
+                                <list-property name="highlightRules">
+                                    <structure>
+                                        <property name="operator">eq</property>
+                                        <property name="backgroundColor">#FF0000</property>
+                                        <expression name="testExpr">row["minpriority"]</expression>
+                                        <simple-property-list name="value1">
+                                            <value>1</value>
+                                        </simple-property-list>
+                                    </structure>
+                                    <structure>
+                                        <property name="operator">eq</property>
+                                        <property name="backgroundColor">#FFA500</property>
+                                        <expression name="testExpr">row["minpriority"]</expression>
+                                        <simple-property-list name="value1">
+                                            <value>2</value>
+                                        </simple-property-list>
+                                    </structure>
+                                    <structure>
+                                        <property name="operator">eq</property>
+                                        <property name="backgroundColor">#FFFF00</property>
+                                        <expression name="testExpr">row["minpriority"]</expression>
+                                        <simple-property-list name="value1">
+                                            <value>3</value>
+                                        </simple-property-list>
+                                    </structure>
+                                    <structure>
+                                        <property name="operator">eq</property>
+                                        <property name="backgroundColor">#0000FF</property>
+                                        <expression name="testExpr">row["minpriority"]</expression>
+                                        <simple-property-list name="value1">
+                                            <value>4</value>
+                                        </simple-property-list>
+                                    </structure>
+                                    <structure>
+                                        <property name="operator">eq</property>
+                                        <property name="backgroundColor">#008000</property>
+                                        <expression name="testExpr">row["minpriority"]</expression>
+                                        <simple-property-list name="value1">
+                                            <value>5</value>
+                                        </simple-property-list>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">minpriority</property>
+                            </data>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="2604">
+                        <cell id="2605"/>
+                        <cell id="2606"/>
+                        <cell id="2607"/>
+                        <cell id="2608"/>
+                        <cell id="2609"/>
+                        <cell id="2610"/>
+                    </row>
+                    <row id="2597">
+                        <cell id="2598">
+                            <property name="colSpan">6</property>
+                            <property name="rowSpan">1</property>
+                            <grid id="1317">
+                                <property name="height">0.2916666666666667in</property>
+                                <property name="width">9.96875in</property>
+                                <column id="1318">
+                                    <property name="width">20%</property>
+                                </column>
+                                <column id="1324">
+                                    <property name="width">20%</property>
+                                </column>
+                                <column id="1319">
+                                    <property name="width">60%</property>
+                                </column>
+                                <row id="1320">
+                                    <property name="height">0.2916666666666667in</property>
+                                    <property name="borderTopColor">#000000</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">1px</property>
+                                    <cell id="1321">
+                                        <label id="834">
+                                            <property name="backgroundAttachment">scroll</property>
+                                            <property name="backgroundPositionX">0%</property>
+                                            <property name="backgroundPositionY">0%</property>
+                                            <property name="backgroundRepeat">repeat</property>
+                                            <property name="fontFamily">"Verdana", "Arial", sans-serif</property>
+                                            <property name="fontSize">small</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="fontStyle">normal</property>
+                                            <property name="fontVariant">normal</property>
+                                            <property name="color">#000000</property>
+                                            <property name="textLineThrough">none</property>
+                                            <property name="textOverline">none</property>
+                                            <property name="textUnderline">none</property>
+                                            <property name="borderBottomColor">black</property>
+                                            <property name="borderBottomStyle">none</property>
+                                            <property name="borderBottomWidth">medium</property>
+                                            <property name="borderLeftColor">black</property>
+                                            <property name="borderLeftStyle">none</property>
+                                            <property name="borderLeftWidth">medium</property>
+                                            <property name="borderRightColor">black</property>
+                                            <property name="borderRightStyle">none</property>
+                                            <property name="borderRightWidth">medium</property>
+                                            <property name="borderTopColor">black</property>
+                                            <property name="borderTopStyle">none</property>
+                                            <property name="borderTopWidth">medium</property>
+                                            <property name="marginTop">0pt</property>
+                                            <property name="marginLeft">0pt</property>
+                                            <property name="marginBottom">0pt</property>
+                                            <property name="marginRight">0pt</property>
+                                            <property name="paddingTop">1pt</property>
+                                            <property name="paddingLeft">1pt</property>
+                                            <property name="paddingBottom">1pt</property>
+                                            <property name="paddingRight">1pt</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="letterSpacing">normal</property>
+                                            <property name="lineHeight">normal</property>
+                                            <property name="orphans">2</property>
+                                            <property name="textTransform">none</property>
+                                            <property name="verticalAlign">bottom</property>
+                                            <property name="whiteSpace">normal</property>
+                                            <property name="widows">2</property>
+                                            <property name="wordSpacing">normal</property>
+                                            <property name="display">block</property>
+                                            <property name="pageBreakAfter">auto</property>
+                                            <property name="pageBreakBefore">auto</property>
+                                            <property name="pageBreakInside">auto</property>
+                                            <property name="showIfBlank">false</property>
+                                            <property name="canShrink">false</property>
+                                            <text-property name="text">Üst Amir Imzasi :</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1323">
+                                        <label id="1360">
+                                            <property name="borderBottomColor">#000000</property>
+                                            <property name="borderBottomStyle">dashed</property>
+                                            <property name="borderBottomWidth">1px</property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1322"/>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="539">
+                    <cell id="540">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <table id="546">
+                            <property name="width">100%</property>
+                            <property name="dataSet">jpseqdataset</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">description</property>
+                                    <expression name="expression">dataSetRow["description"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">jpnum</property>
+                                    <expression name="expression">dataSetRow["jpnum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">jdescription</property>
+                                    <expression name="expression">dataSetRow["jdescription"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="pageBreakInterval">50</property>
+                            <column id="568"/>
+                            <column id="569"/>
+                            <column id="570"/>
+                            <column id="571"/>
+                            <column id="572"/>
+                            <column id="573"/>
+                            <header>
+                                <row id="770">
+                                    <property name="height">0.08in</property>
+                                    <cell id="771">
+                                        <property name="colSpan">6</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="borderTopColor">#000000</property>
+                                        <property name="borderTopStyle">solid</property>
+                                        <property name="borderTopWidth">thin</property>
+                                    </cell>
+                                </row>
+                                <row id="675">
+                                    <property name="style">tableheaderrow</property>
+                                    <cell id="676">
+                                        <property name="colSpan">2</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="style">tableheaderlabel</property>
+                                        <label id="684">
+                                            <text-property name="text">Job Plan Details</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="678"/>
+                                    <cell id="679"/>
+                                    <cell id="680"/>
+                                    <cell id="681"/>
+                                </row>
+                            </header>
+                            <group id="2091">
+                                <property name="groupName">NewTableGroup1</property>
+                                <property name="interval">none</property>
+                                <property name="sortDirection">asc</property>
+                                <expression name="keyExpr">row["jpnum"]</expression>
+                                <structure name="toc">
+                                    <expression name="expressionValue">row["jpnum"]</expression>
+                                </structure>
+                                <property name="repeatHeader">true</property>
+                                <property name="hideDetail">false</property>
+                                <property name="pageBreakAfter">auto</property>
+                                <property name="pageBreakBefore">auto</property>
+                                <property name="pageBreakInside">auto</property>
+                                <header>
+                                    <row id="2092">
+                                        <cell id="2093">
+                                            <data id="2106">
+                                                <property name="resultSetColumn">jpnum</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="2094"/>
+                                        <cell id="2095"/>
+                                        <cell id="2096"/>
+                                        <cell id="2097"/>
+                                        <cell id="2098"/>
+                                    </row>
+                                </header>
+                                <footer>
+                                    <row id="2099">
+                                        <cell id="2100"/>
+                                        <cell id="2101"/>
+                                        <cell id="2102"/>
+                                        <cell id="2103"/>
+                                        <cell id="2104"/>
+                                        <cell id="2105"/>
+                                    </row>
+                                </footer>
+                            </group>
+                            <detail>
+                                <row id="2035">
+                                    <property name="style">tabledetailsdatarow</property>
+                                    <cell id="2036">
+                                        <property name="colSpan">6</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="2042">
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">description</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </detail>
+                        </table>
+                        <table id="777">
+                            <property name="width">100%</property>
+                            <property name="dataSet">routedataset</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">rroute</property>
+                                    <expression name="expression">dataSetRow["rroute"]+'/'+dataSetRow["rdescription"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">rlocation</property>
+                                    <expression name="expression">dataSetRow["rlocation"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">rassetnum</property>
+                                    <expression name="expression">dataSetRow["rassetnum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">radescription</property>
+                                    <expression name="expression">dataSetRow["radescription"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">aldescription</property>
+                                    <expression name="expression">dataSetRow["aldescription"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">rdescription</property>
+                                    <expression name="expression">dataSetRow["rdescription"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">priority</property>
+                                    <expression name="expression">dataSetRow["priority"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="pageBreakInterval">50</property>
+                            <column id="806">
+                                <property name="width">20%</property>
+                            </column>
+                            <column id="807">
+                                <property name="width">20%</property>
+                            </column>
+                            <column id="808">
+                                <property name="width">20%</property>
+                            </column>
+                            <column id="811">
+                                <property name="width">20%</property>
+                            </column>
+                            <header>
+                                <row id="780">
+                                    <property name="style">tableheaderrow</property>
+                                    <cell id="781">
+                                        <property name="colSpan">2</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="style">tableheaderlabel</property>
+                                        <label id="782">
+                                            <text-property name="text">Route Name/ Equipment List</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="784"/>
+                                    <cell id="787"/>
+                                </row>
+                            </header>
+                            <group id="2108">
+                                <property name="groupName">NewTableGroup1</property>
+                                <property name="interval">none</property>
+                                <property name="sortDirection">asc</property>
+                                <expression name="keyExpr">row["rroute"]</expression>
+                                <structure name="toc">
+                                    <expression name="expressionValue">row["rroute"]</expression>
+                                </structure>
+                                <property name="repeatHeader">true</property>
+                                <property name="hideDetail">false</property>
+                                <property name="pageBreakAfter">auto</property>
+                                <property name="pageBreakBefore">auto</property>
+                                <property name="pageBreakInside">auto</property>
+                                <header>
+                                    <row id="2109">
+                                        <cell id="2110">
+                                            <property name="colSpan">4</property>
+                                            <property name="rowSpan">1</property>
+                                            <data id="2123">
+                                                <property name="resultSetColumn">rroute</property>
+                                            </data>
+                                        </cell>
+                                    </row>
+                                </header>
+                                <footer>
+                                    <row id="2116">
+                                        <cell id="2117"/>
+                                        <cell id="2118"/>
+                                        <cell id="2119"/>
+                                        <cell id="2122"/>
+                                    </row>
+                                </footer>
+                            </group>
+                            <group id="2124">
+                                <property name="groupName">NewTableGroup2</property>
+                                <property name="interval">none</property>
+                                <property name="sortDirection">asc</property>
+                                <expression name="keyExpr">row["rdescription"]</expression>
+                                <structure name="toc">
+                                    <expression name="expressionValue">row["rdescription"]</expression>
+                                </structure>
+                                <property name="repeatHeader">true</property>
+                                <property name="hideDetail">false</property>
+                                <property name="pageBreakAfter">auto</property>
+                                <property name="pageBreakBefore">auto</property>
+                                <property name="pageBreakInside">auto</property>
+                                <header>
+                                    <row id="2141">
+                                        <cell id="2142">
+                                            <label id="2140">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">right</property>
+                                                <text-property name="text">Asset Number</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="2143">
+                                            <label id="790">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">right</property>
+                                                <text-property name="text">Asset Description</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="2144">
+                                            <label id="2148">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">right</property>
+                                                <text-property name="text">Location</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="2147">
+                                            <label id="2151">
+                                                <property name="fontWeight">bold</property>
+                                                <property name="textAlign">right</property>
+                                                <text-property name="text">Notes/Signature</text-property>
+                                            </label>
+                                        </cell>
+                                    </row>
+                                </header>
+                                <footer>
+                                    <row id="2132">
+                                        <cell id="2133"/>
+                                        <cell id="2134"/>
+                                        <cell id="2135"/>
+                                        <cell id="2138"/>
+                                    </row>
+                                </footer>
+                            </group>
+                            <detail>
+                                <row id="796">
+                                    <property name="style">tabledetailsdatarow</property>
+                                    <cell id="797">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="2153">
+                                            <property name="resultSetColumn">rassetnum</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="799">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="2154">
+                                            <property name="resultSetColumn">radescription</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="800">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="2155">
+                                            <property name="resultSetColumn">rlocation</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="803">
+                                        <property name="style">tabledetailsdatacell</property>
+                                    </cell>
+                                </row>
+                            </detail>
+                        </table>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">bplogo.gif</property>
+            <property name="data">
+                R0lGODdhNgBGAPcAAP///5HVpySoPMzr1mrGhwGdM7Dhv+P06UO2Z1SwJLXHEoi8GvXmEf31lvzuUAGU
+                IwCQIACcEoCEErXGEPTmEPzxlPXkEP771fzkEGLEgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                ACwAAAAANgBGAAAI/wABCBxIsKDBgwYDCBiAsKHDhxABECjAMKLFiwgnVsTIEaNGAAYCbARwQOABAyM7
+                XpyoUICAAghKGihAYGKBAgtVerwZQOBEBCBvIhhwIADOkjojTiRAEAHFmQIIskyqtIABqQUCzGQ6cABM
+                qhA/DmS5leCBr2AdTrw61mrZrmjTZqRJ8OXJuACMcpV70Cbbn0GtmrTLd+5ElzBl4hSAwGnWwggHXC1K
+                YOPWAY0rQ+74drPOzp450w2ddy9phAeQmn2ZkmRryEbZtsULYADj0wAc9xTo9aZggTNpb3Y82qZQgUZv
+                ClC9+cBL35V9+w6Q3LdsqgYIXO8tPYH0m96/7/8Grr1jbwGag0tXEB68gufTSRJ4Pv6ic+kIjLtnr1wB
+                f+k1fXfdRcSBtwB8C/inwE0JKrCAbwIs0J5vzBH4XQL+hacgexgq+FKHEwpnUXX7OSjAhihyqGCIQKnE
+                XYkpMsBAiiuKFxFmjeWIQAIJPHfihjP6J6OCQ9a4WAI65jigQAUyuGKHRAZZpIxBZphAgw9+t9xB6kGI
+                YpEKUCmmmESiGOJjCDVZQINCTjnmmGGC6d93ODlkm5ZfvtmAjA048KaZdC5ZUAAPQBDBoRFIMMGicTJA
+                QQUWMHABBhQAQAEFDVBApQKLTiABohFAAEEGDRWFgEsxitknAw4A0MAFFzT/AECrezqwJ5koupTfSAY0
+                +SOQVLZ6gQMXFFSsrbPiuiF8QgVwwIvS/RqljMIWa2yxt8qZIZ03XXUnnRG2yWqsyDbU56vZesgtmrUx
+                a+CbxF6U7aY9ajngAcZBKS6Vrz4076ZGJoaQQjTG2e9FsWq7omkFHXAqm8Da2sDB5k7sZ5UbHjgUl/CF
+                uy+1sj407J/+HShdfXmtu4CeAlmLkLUjk+nuTXvp192XtvoZ8susrgoot0BB65u++8pK8UCxAnCBsgpm
+                SWdPpt6cJ7WzVqt00g4QO2+KEyLgbMMBzJdqsHzOCqusxC7NKpxm7uqQcy7xeGWVYo7saqvjXkw3hz26
+                5PRaQTavCSyrF488ctYAq4vfQ13C2Kiq1L4pp9PQlTrz1B+TrO3Mf5MII8Rxittowf8tbtB93yUoIarA
+                thnlhj1e6SC3rZ1kwO24MyttmK+7HjBOWuF++98FNa4v6BhDHCLDK11YI4oQs176cSo1iaHJgmcorW8J
+                hhiVSu7yKHWWHVIuwJnEl4pfSHguyP30NGEmnaCM46RZYNJhr5z+PPGmELsXGUBKzhItNZ1KQAURIF+Y
+                dRV3EYVZ6QOLYwTAFhJxBXXfI81hRgKfjThMRIXpVYWCw7ya4KYhp6rQCR8iGb4EBAA7AAAsAAAAAAA2
+            </property>
+        </structure>
+    </list-property>
+</report>
