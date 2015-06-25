@@ -1,7 +1,11 @@
-select 	workorder.parent, workorder.wonum, workorder.description, workorder.assetnum, workorder.classstructureid, workorder.siteid, s.description siteDesc, wl.description summary, ld.ldtext wldescription from workorder, site as s, worklog as wl, longdescription as ld where 1=1 and workorder.worktype='100' and workorder.wopriority=10 and workorder.orgid='YARORG' and workorder.targcompdate <= { ts '2015-01-05 23:59:59.998' } and workorder.targstartdate >= { ts '2014-01-05 00:00:00.000' } and workorder.siteid = s.siteid and workorder.wonum = wl.RECORDKEY and workorder.siteid = wl.SITEID and 1 = wl.clientviewable and wl.WORKLOGID = ld.ldkey 
+select wonum,siteid,location,classstructureid,  
+(select person.displayname from person where person.personid = (select top 1 jobplan.supervisor from jobplan, workorder where jobplan.jpnum=workorder.jpnum and jobplan.siteid=workorder.siteid )) as owner,  
+(select asset.priority from asset, workorder where asset.assetnum=workorder.assetnum and asset.siteid=workorder.siteid ) as priority,  
+(select site.description from site where site.siteid=workorder.siteid ) as sdescription,  
+(select worktype.wtypedesc from worktype where worktype.worktype=workorder.worktype ) as worktype,  
+coalesce( (select min(priority) from asset where asset.assetnum=workorder.assetnum and asset.siteid=workorder.siteid),(select min(priority) from asset where asset.location=workorder.location and asset.siteid=workorder.siteid and workorder.wopriority=5), (select asset.priority from asset where asset.assetnum=workorder.assetnum and asset.siteid=workorder.siteid)) as minpriority,  
+(select description from jobplan where jobplan.jpnum=workorder.jpnum ) as jdescription,
+targstartdate,targcompdate,assetnum,description as description,wopriority,jpnum   
+from workorder  
+where workorder.worktype='100' and workorder.wopriority=10 and workorder.parent is null and workorder.assetnum is not null and workorder.location is not null and orgid='YARORG' --and " + params["where"]
 
---SELECT * FROM WORKORDER WHERE ORGID = 'YARORG'
-
---SELECT * FROM dbo.longdescription
-
---select * from workorder where parent is null and wopriority = 10

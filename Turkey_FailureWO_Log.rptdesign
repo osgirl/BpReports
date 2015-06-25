@@ -535,8 +535,8 @@ return (true);]]></method>
             <method name="open"><![CDATA[assetDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
 assetDataSet.open();
 	
-var sqlText = " select  asset.description,asset.assetnum from asset  "
-+ " where rownum<2 and asset.assetnum = '" +rows[0]["assetnum"]+"' and asset.siteid= '" +rows[0]["siteid"]+"' and asset.orgid='BP-TURK'"
+var sqlText = " select top 2 asset.description,asset.assetnum from asset  "
++ " where asset.assetnum = '" +rows[0]["assetnum"]+"' and asset.siteid= '" +rows[0]["siteid"]+"' and asset.orgid='YARORG'"
 assetDataSet.setQuery(sqlText);]]></method>
             <method name="fetch"><![CDATA[if (!assetDataSet.fetch())
 	return (false);
@@ -583,8 +583,8 @@ return (true);]]></method>
             <method name="open"><![CDATA[locationDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
 locationDataSet.open();
 	
-var sqlText = " select locations.description,locations.location from locations  "
-+ " where rownum<2 and locations.location = '" +rows[0]["location"]+"' and locations.siteid= '" +rows[0]["siteid"]+"' and locations.orgid='BP-TURK'"
+var sqlText = " select top 2 locations.description,locations.location from locations  "
++ " where  locations.location = '" +rows[0]["location"]+"' and locations.siteid= '" +rows[0]["siteid"]+"' and locations.orgid='YARORG'"
 locationDataSet.setQuery(sqlText);]]></method>
             <method name="fetch"><![CDATA[if (!locationDataSet.fetch())
 	return (false);
@@ -644,9 +644,9 @@ return (true);]]></method>
             <method name="open"><![CDATA[worklogDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
 worklogDataSet.open();
 	
-var sqlText = " select worklog.description,worklog.createdate, "
+var sqlText = " select top 2 worklog.description,worklog.createdate, "
 + " (select longdescription.ldtext from longdescription where longdescription.ldkey= worklog.worklogid) as aldescription  "
-+ " from worklog where  rownum<2 and "
++ " from worklog where "
 + " worklog.recordkey = '"+rows[0]["wonum"]+"' and worklog.siteid = '"+rows[0] ["siteid"]+"' and worklog.clientviewable=1"
 worklogDataSet.setQuery(sqlText);]]></method>
             <method name="fetch"><![CDATA[if (!worklogDataSet.fetch())
@@ -812,7 +812,7 @@ return (true);]]></method>
 matDataSet.open();
 	
 var sqlText = " select wpmaterial.description,wpmaterial.itemnum, wpmaterial.itemqty from wpmaterial  "
-+ " where wpmaterial.wonum = '" +rows[0]["wonum"]+"' and wpmaterial.siteid= '" +rows[0]["siteid"]+"' and wpmaterial.orgid='BP-TURK'"
++ " where wpmaterial.wonum = '" +rows[0]["wonum"]+"' and wpmaterial.siteid= '" +rows[0]["siteid"]+"' and wpmaterial.orgid='YARORG'"
 matDataSet.setQuery(sqlText);]]></method>
             <method name="fetch"><![CDATA[if (!matDataSet.fetch())
 	return (false);
