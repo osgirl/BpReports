@@ -277,13 +277,13 @@ if(params["siteid"].value) {
 	params["where"]+= " and " + MXReportSqlFormat.createParamWhereClause("workorder.siteid", params["siteid"].toUpperCase());
 }
 
-sqlText = " select workorder.wonum,workorder.description, "
-+ " (select jobplan.priority from jobplan where jobplan.jpnum=workorder.jpnum and ((jobplan.orgid=workorder.orgid and jobplan.siteid=workorder.siteid) or (jobplan.orgid=workorder.orgid and jobplan.siteid is null) or (jobplan.orgid is null and jobplan.siteid is null)) ) as jpriority, "
-+ " (select site.description from site where site.siteid=workorder.siteid) as siteid , "
-+ " workorder.targstartdate,workorder.targcompdate,workorder.actfinish,workorder.actfinish-workorder.targcompdate as delay "
+sqlText = " select workorder.wonum, workorder.description, "
++ " (select top 1 jobplan.priority from jobplan, workorder where jobplan.jpnum=workorder.jpnum and ((jobplan.orgid=workorder.orgid and jobplan.siteid=workorder.siteid) or (jobplan.orgid = workorder.orgid and jobplan.siteid is null) or (jobplan.orgid is null and jobplan.siteid is null)) ) as jpriority, "
++ " (select top 1 site.description from site, workorder where site.siteid=workorder.siteid) as siteid , "
++ " workorder.targstartdate,workorder.targcompdate,workorder.actfinish, Convert(int, convert(datetime,workorder.actfinish)) - Convert(int, Convert(datetime,workorder.targcompdate)) as delay "
 + " from workorder "
 + " where " + params["where"]
-+ " and workorder.orgid='YARORG' and workorder.parent is null and workorder.jpnum is not null and workorder.targstartdate is not null and workorder.targcompdate is not null "
++ " and workorder.orgid='YARORG' and (workorder.parent = 'NULL' or workorder.parent is null) and workorder.jpnum is not null and workorder.targstartdate is not null and workorder.targcompdate is not null "
 + " and workorder.targcompdate <= " + MXReportSqlFormat.getEndDayTimestampFunction(params["enddate"])
 + " and workorder.targstartdate >= " + MXReportSqlFormat.getStartDayTimestampFunction(params["startdate"])
 ;
@@ -422,11 +422,13 @@ return (true);]]></method>
                     <expression name="expression">dataSetRow["delay"]</expression>
                     <property name="dataType">integer</property>
                 </structure>
+                <!--
                 <structure>
                     <property name="name">Column Binding</property>
                     <expression name="expression">count(delay)</expression>
                     <property name="dataType">integer</property>
                 </structure>
+                -->
                 <structure>
                     <property name="name">Column Binding_1</property>
                     <expression name="expression">Total.count(row["delay"] > 2)</expression>

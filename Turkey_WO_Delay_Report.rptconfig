@@ -15,11 +15,11 @@
         </structure>
         <structure>
             <property name="name">__isdisplay__startdate_2379_2</property>
-            <property name="value">01/01/2009</property>
+            <property name="value">01/01/09</property>
         </structure>
         <structure>
             <property name="name">__isdisplay__enddate_2380_3</property>
-            <property name="value">01/01/2015</property>
+            <property name="value">01/01/15</property>
         </structure>
         <structure>
             <property name="name">__isdisplay__siteid_2396_4</property>
