@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <list-property name="configVars">
+        <structure>
+            <property name="name">__isdisplay__where_25_0</property>
+            <property name="value">1=1</property>
+        </structure>
+        <structure>
+            <property name="name">__isnull_240_1</property>
+            <property name="value">appname_240</property>
+        </structure>
+        <structure>
+            <property name="name">appname_240_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__startdate_2379_2</property>
+            <property name="value">01/01/09</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__enddate_2380_3</property>
+            <property name="value">01/01/15</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__siteid_2396_4</property>
+            <property name="value">YARIMCA</property>
+        </structure>
+        <structure>
+            <property name="name">startdate_2379_5</property>
+            <property name="value">2009-01-01 00:00:00.000</property>
+        </structure>
+        <structure>
+            <property name="name">startdate_2379_type_</property>
+            <property name="value">dateTime</property>
+        </structure>
+        <structure>
+            <property name="name">siteid_2396_6</property>
+            <property name="value">YARIMCA</property>
+        </structure>
+        <structure>
+            <property name="name">siteid_2396_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">enddate_2380_7</property>
+            <property name="value">2015-01-01 00:00:00.000</property>
+        </structure>
+        <structure>
+            <property name="name">enddate_2380_type_</property>
+            <property name="value">dateTime</property>
+        </structure>
+        <structure>
+            <property name="name">where_25_8</property>
+            <property name="value">1=1</property>
+        </structure>
+        <structure>
+            <property name="name">where_25_type_</property>
+            <property name="value">string</property>
+        </structure>
+    </list-property>
+</report>
