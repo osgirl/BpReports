@@ -43,7 +43,7 @@ select wonum, description, (select asset.priority from asset where asset.assetnu
   select top 2 asset.description,asset.assetnum from asset
  where asset.assetnum = 'YDT0007' and asset.siteid= 'YARIMCA'
 
- SELECT * FROM locations WHERE siteid = 'YARIMCA'
+ SELECT * FROM route_stop WHERE siteid = 'YARIMCA'
 
  select jobtask.jptask, jobplan.description as jdescription,jobtask.jpnum,jobtask.description as description from jobplan join jobtask on jobplan.jobplanid=jobtask.jobplanid
  and jobplan.jpnum = 'B0010' and jobplan.siteid= 'YARIMCA'
@@ -59,6 +59,8 @@ select wonum, description, (select asset.priority from asset where asset.assetnu
  coalesce((select top 2 locations.description from locations where locations.location=(select top 2 asset.location from asset where asset.assetnum=route_stop.assetnum and asset.siteid=route_stop.siteid) and locations.siteid=route_stop.siteid),(select top 2 locations.description from locations where locations.location=route_stop.location and locations.siteid=route_stop.siteid )) as ldescription,
  (select top 2 routes.description from routes where routes.route=route_stop.route and routes.siteid=route_stop.siteid) as rdescription 
   from route_stop
-  where route_stop.route='" +rows[0]["route"]+"' and route_stop.siteid= '" +rows[0]["siteid"]+"'  order by priority
+  where route_stop.route='R101' and route_stop.siteid= 'YARIMCA'  order by priority
+
+  
 
 

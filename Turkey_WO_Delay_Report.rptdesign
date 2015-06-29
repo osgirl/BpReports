@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
     <property name="createdBy">Eclipse BIRT Designer Version 3.7.2.v20120213 Build &lt;3.7.2.v20120214-1408></property>
     <html-property name="description">This template will create a report with one or more groups, each having identical data fields.</html-property>
@@ -11,7 +11,9 @@
 
 mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
 mxReportScriptContext.setDefaultLogLevel("DEBUG");
-mxReportScriptContext.setDefaultLogFile("c:/temp/myreport.log");]]></method>
+mxReportScriptContext.setDefaultLogFile("c:/temp/myreport.log");
+
+// guncelleme 29/06/15]]></method>
     <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
     <property name="theme">MaximoSystemLibrary.maximoTheme</property>
     <text-property name="displayName">Tivoli Maximo Grouped Template</text-property>
