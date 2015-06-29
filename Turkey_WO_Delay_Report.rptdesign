@@ -286,8 +286,8 @@ sqlText = " select workorder.wonum, workorder.description, "
 + " from workorder "
 + " where " + params["where"]
 + " and workorder.orgid='YARORG' and (workorder.parent = 'NULL' or workorder.parent is null) and workorder.jpnum is not null and workorder.targstartdate is not null and workorder.targcompdate is not null "
-+ " and workorder.targcompdate <= " + MXReportSqlFormat.getEndDayTimestampFunction(params["enddate"])
-+ " and workorder.targstartdate >= " + MXReportSqlFormat.getStartDayTimestampFunction(params["startdate"])
++ " and workorder.targcompdate <= '01/01/15'" // + MXReportSqlFormat.getEndDayTimestampFunction(params["enddate"])
++ " and workorder.targstartdate >= '01/01/09'" // + MXReportSqlFormat.getStartDayTimestampFunction(params["startdate"])
 ;
 
 maximoDataSet.setQuery(sqlText);]]></method>
