@@ -285,7 +285,7 @@ sqlText = " select workorder.wonum, workorder.description, "
 + " workorder.targstartdate,workorder.targcompdate,workorder.actfinish, Convert(int, convert(datetime,workorder.actfinish)) - Convert(int, Convert(datetime,workorder.targcompdate)) as delay "
 + " from workorder "
 + " where " + params["where"]
-+ " and workorder.orgid='YARORG' and (workorder.parent = 'NULL' or workorder.parent is null) and workorder.jpnum is not null and workorder.targstartdate is not null and workorder.targcompdate is not null "
++ " and workorder.orgid='YARORG' and (workorder.parent = '' or workorder.parent is null) and workorder.jpnum is not null and workorder.targstartdate is not null and workorder.targcompdate is not null "
 + " and workorder.targcompdate <= " + MXReportSqlFormat.getEndDayTimestampFunction(params["enddate"])
 + " and workorder.targstartdate >= " + MXReportSqlFormat.getStartDayTimestampFunction(params["startdate"])
 ;
