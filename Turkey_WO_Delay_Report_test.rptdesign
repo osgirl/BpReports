@@ -280,7 +280,7 @@ if(params["siteid"].value) {
 }
 
 sqlText = " select workorder.wonum, workorder.description, "
-+ " (select top 1 jobplan.priority from jobplan, workorder where jobplan.jpnum=workorder.jpnum and ((jobplan.orgid=workorder.orgid and jobplan.siteid=workorder.siteid) or (jobplan.orgid = workorder.orgid and jobplan.siteid is null) or (jobplan.orgid is null and jobplan.siteid is null)) ) as jpriority, "
+//+ " (select top 1 jobplan.priority from jobplan, workorder where jobplan.jpnum=workorder.jpnum and ((jobplan.orgid=workorder.orgid and jobplan.siteid=workorder.siteid) or (jobplan.orgid = workorder.orgid and jobplan.siteid is null) or (jobplan.orgid is null and jobplan.siteid is null)) ) as jpriority, "
 + " (select top 1 site.description from site, workorder where site.siteid=workorder.siteid) as siteid , "
 + " workorder.targstartdate,workorder.targcompdate,workorder.actfinish, Convert(int, convert(datetime,workorder.actfinish)) - Convert(int, Convert(datetime,workorder.targcompdate)) as delay "
 + " from workorder "
