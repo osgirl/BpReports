@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="comments">IBM Confidential
+
+OCO Source Materials
+
+5724-M19
+
+(C) COPYRIGHT IBM CORP. 2006
+
+The source code for this program is not published or otherwise
+divested of its trade secrets, irrespective of what has been
+deposited with the U.S. Copyright Office.</property>
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.2.v20120213 Build &lt;3.7.2.v20120214-1408></property>
+    <html-property name="description">This template will create a report with one or more subreports, each having different data fields.</html-property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[
+importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+
+
+mxReportScriptContext.setDefaultLogLevel("DEBUG");
+mxReportScriptContext.setDefaultLogFile("c:/temp/testdyn.log");
+scriptLogger = mxReportScriptContext.getReportScriptLogger();
+]]></method>
+    <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <text-property name="displayName">Tivoli Maximo Subreport Template</text-property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="where" id="25">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="appname" id="731">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="733">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="732">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="startDate" id="3177">
+            <property name="valueType">static</property>
+            <property name="dataType">dateTime</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endDate" id="3178">
+            <property name="valueType">static</property>
+            <property name="dataType">dateTime</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="site" id="3179">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="3620">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+            <property name="odaURL">jdbc:sqlserver://;serverName=127.0.0.1;databaseName=maxdb75;portNumber=1433;integratedSecurity=false;sendStringParametersAsUnicode=false;selectMethod=cursor;</property>
+            <property name="odaUser">maximo</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">THN2bGVkZmM0</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="siteDataSet" id="3266">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">siteDesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">siteid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">wonum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">classstructureid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">wldescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">summary</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">assetnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">cldescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">clhierarchypath</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">siteDesc</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">wonum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">classstructureid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">wldescription</property>
+                </structure>
+                <structure>
+                    <property name="columnName">summary</property>
+                </structure>
+                <structure>
+                    <property name="columnName">assetnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">cldescription</property>
+                </structure>
+                <structure>
+                    <property name="columnName">clhierarchypath</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">siteDesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">siteid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">wonum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">classstructureid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">wldescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">summary</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">assetnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">cldescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">clhierarchypath</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[siteDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+siteDataSet.open();
+
+var sqlText = new String();
+
+sqlText = " select workorder.wonum, workorder.description, workorder.assetnum, workorder.classstructureid, workorder.siteid,  "
++ " s.description siteDesc,"
++ " wl.description summary,"
++ " ld.ldtext wldescription "
++ " from workorder, site s, worklog wl, longdescription ld"
++ " where " +params["where"] 
++ " and workorder.worktype='100' and workorder.wopriority=10 and workorder.parent is null and workorder.orgid='YARORG'"
++ " and workorder.targcompdate <= " + MXReportSqlFormat.getEndDayTimestampFunction(params["endDate"])
++ " and workorder.targstartdate >= " + MXReportSqlFormat.getStartDayTimestampFunction(params["startDate"])
++ " and workorder.siteid = s.siteid (+)"
++ " and workorder.wonum = wl.RECORDKEY (+) and workorder.siteid = wl.SITEID (+)"
++ " and 1 = wl.clientviewable (+) and wl.WORKLOGID = ld.ldkey (+)"
+;
+
+siteDataSet.setQuery(sqlText);
+
+]]></method>
+            <method name="fetch"><![CDATA[if (!siteDataSet.fetch())
+	return (false);
+row["siteDesc"] = siteDataSet.getString("siteDesc");
+row["siteid"] = siteDataSet.getString("siteid");
+row["assetnum"] = siteDataSet.getString("assetnum");
+row["description"] = siteDataSet.getString("description");
+row["wldescription"] = siteDataSet.getString("wldescription");
+row["summary"] = siteDataSet.getString("summary");
+row["wonum"] = siteDataSet.getString("wonum");
+row["classstructureid"] = siteDataSet.getString("classstructureid");
+
+dummyDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), "dummyDataSet");
+dummyDataSet.open();
+	
+var sqlText = " select max(hierarchylevels) as hierarchylevels from classancestor  "
++ " where classstructureid=" +row["classstructureid"]
+
+if(scriptLogger.isDebugEnabled()) {
+		scriptLogger.debug(" >>> Dummy Data Set Sql Text = "+sqlText);
+}
+
+dummyDataSet.setQuery(sqlText);
+
+if(dummyDataSet.fetch()){
+var count =  dummyDataSet.getInteger("hierarchylevels");
+
+dummyDataSet.close();
+clhierarchypath ="";
+cldescription="";
+
+	for(var i=0;i<=count;count--)
+	{
+		dummy1DataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), "dummy1DataSet");
+		dummy1DataSet.open();
+
+		var sqlText1 = " select (select classstructure.classificationid from classstructure where classstructure.classstructureid=classancestor.ancestor) as clhierarchypath, "
+		+ " (select classstructure.description from classstructure where classstructure.classstructureid=classancestor.ancestor) as cldescription "
+		+ " from classancestor  "
+		+ " where classancestor.classstructureid=" +row["classstructureid"]+" and classancestor.hierarchylevels= "+count 
+		;
+		
+		dummy1DataSet.setQuery(sqlText1);
+		
+		if(dummy1DataSet.fetch()){
+			if(count==0){
+				cldescription +=dummy1DataSet.getString("cldescription");
+				clhierarchypath +=dummy1DataSet.getString("clhierarchypath");
+			}else{
+				cldescription +=dummy1DataSet.getString("cldescription") + " \\ ";
+				clhierarchypath +=dummy1DataSet.getString("clhierarchypath") + " \\ ";
+				}
+		}
+	}
+	dummy1DataSet.close();
+} 
+row["cldescription"] = cldescription;
+row["clhierarchypath"] = clhierarchypath;
+return (true);
+]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="crosstab-cell" id="829">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="830">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="maximoLandscape" id="47" extends="MaximoSystemLibrary.maximoLandscape">
+            <property name="topMargin">1in</property>
+            <property name="leftMargin">1.25in</property>
+            <property name="bottomMargin">1in</property>
+            <property name="rightMargin">1.25in</property>
+            <overridden-values>
+                <ref-entry baseId="304" name="NewGrid2" id="304"/>
+                <ref-entry baseId="305" id="305"/>
+                <ref-entry baseId="306" id="306"/>
+                <ref-entry baseId="307" id="307"/>
+                <ref-entry baseId="308" id="308"/>
+                <ref-entry baseId="340" name="NewImage1" id="340"/>
+                <ref-entry baseId="309" id="309"/>
+                <ref-entry baseId="310" name="NewImage" id="310"/>
+                <ref-entry baseId="322" name="NewGrid" id="322"/>
+                <ref-entry baseId="323" id="323"/>
+                <ref-entry baseId="324" id="324"/>
+                <ref-entry baseId="325" id="325"/>
+                <ref-entry baseId="326" id="326"/>
+                <ref-entry baseId="328" name="NewText" id="328"/>
+                <ref-entry baseId="327" id="327"/>
+                <ref-entry baseId="329" name="NewGrid1" id="329"/>
+                <ref-entry baseId="330" id="330"/>
+                <ref-entry baseId="331" id="331"/>
+                <ref-entry baseId="332" id="332"/>
+                <ref-entry baseId="333" id="333"/>
+                <ref-entry baseId="334" id="334"/>
+                <ref-entry baseId="335" name="NewAutoText" id="335"/>
+                <ref-entry baseId="336" id="336"/>
+                <ref-entry baseId="337" name="NewText1" id="337"/>
+                <ref-entry baseId="338" id="338"/>
+                <ref-entry baseId="339" name="NewAutoText1" id="339"/>
+            </overridden-values>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="7">
+            <property name="marginTop">0pt</property>
+            <property name="width">11in</property>
+            <property name="dataSet">siteDataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">siteDesc</property>
+                    <expression name="expression">dataSetRow["siteDesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteid</property>
+                    <expression name="expression">dataSetRow["siteid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">wonum</property>
+                    <expression name="expression">dataSetRow["wonum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">classstructureid</property>
+                    <expression name="expression">dataSetRow["classstructureid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <expression name="expression">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">wldescription</property>
+                    <expression name="expression">dataSetRow["wldescription"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">summary</property>
+                    <expression name="expression">dataSetRow["summary"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">assetnum</property>
+                    <expression name="expression">dataSetRow["assetnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">cldescription</property>
+                    <text-property name="displayName">cldescription</text-property>
+                    <expression name="expression">dataSetRow["cldescription"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">clhierarchypath</property>
+                    <text-property name="displayName">clhierarchypath</text-property>
+                    <expression name="expression">dataSetRow["clhierarchypath"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">hierarchypath</property>
+                    <text-property name="displayName">cldescription</text-property>
+                    <expression name="expression">dataSetRow["clhierarchypath"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">50</property>
+            <column id="83">
+                <property name="width">1in</property>
+            </column>
+            <column id="3561">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="3613">
+                <property name="width">1.5in</property>
+            </column>
+            <column id="91">
+                <property name="width">1in</property>
+            </column>
+            <column id="87">
+                <property name="width">3in</property>
+            </column>
+            <column id="17">
+                <property name="width">4in</property>
+            </column>
+            <header>
+                <row id="3253">
+                    <cell id="3254">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <grid id="2323">
+                            <property name="borderBottomColor">#000000</property>
+                            <property name="borderBottomStyle">solid</property>
+                            <property name="borderBottomWidth">1px</property>
+                            <property name="marginTop">0pt</property>
+                            <property name="width">11in</property>
+                            <property name="dataSet">siteDataSet</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">siteDesc</property>
+                                    <expression name="expression">dataSetRow["siteDesc"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <column id="2324">
+                                <property name="width">1in</property>
+                            </column>
+                            <column id="2325">
+                                <property name="width">7in</property>
+                            </column>
+                            <column id="2326">
+                                <property name="width">3in</property>
+                            </column>
+                            <row id="2327">
+                                <property name="borderTopColor">#000000</property>
+                                <property name="borderTopStyle">solid</property>
+                                <property name="borderTopWidth">1px</property>
+                                <cell id="2328">
+                                    <property name="borderRightColor">#000000</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">1px</property>
+                                    <property name="borderTopColor">#000000</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">1px</property>
+                                    <image id="2331">
+                                        <property name="height">70px</property>
+                                        <property name="width">70px</property>
+                                        <property name="source">embed</property>
+                                        <property name="imageName">bplogo.gif</property>
+                                    </image>
+                                </cell>
+                                <cell id="2329">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="borderRightColor">#000000</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">1px</property>
+                                    <property name="borderTopColor">#000000</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">1px</property>
+                                    <property name="textAlign">center</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <label id="3619">
+                                        <property name="fontSize">14pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <text-property name="text">ARIZA SİCİL KAYDI.</text-property>
+                                    </label>
+                                    <data id="3618">
+                                        <property name="fontSize">13pt</property>
+                                        <property name="fontWeight">normal</property>
+                                        <property name="paddingTop">8pt</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="dataSet">siteDataSet</property>
+                                        <list-property name="boundDataColumns">
+                                            <structure>
+                                                <property name="name">siteDesc</property>
+                                                <expression name="expression">dataSetRow["siteDesc"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                        </list-property>
+                                        <property name="resultSetColumn">siteDesc</property>
+                                    </data>
+                                </cell>
+                                <cell id="3265">
+                                    <property name="borderRightColor">#000000</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">1px</property>
+                                    <property name="borderTopColor">#000000</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">1px</property>
+                                    <property name="verticalAlign">middle</property>
+                                    <grid id="2533">
+                                        <property name="textAlign">left</property>
+                                        <property name="width">3in</property>
+                                        <column id="2534">
+                                            <property name="width">1in</property>
+                                        </column>
+                                        <column id="2535">
+                                            <property name="width">0.1in</property>
+                                        </column>
+                                        <column id="2536">
+                                            <property name="width">1in</property>
+                                        </column>
+                                        <row id="2541">
+                                            <cell id="2542">
+                                                <label id="2626">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="fontWeight">normal</property>
+                                                    <property name="color">#000000</property>
+                                                    <property name="textAlign">left</property>
+                                                    <text-property name="text">Başlangıç Tarihi</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="2543">
+                                                <label id="2589">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="fontWeight">normal</property>
+                                                    <property name="color">#000000</property>
+                                                    <text-property name="text">:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="2544">
+                                                <data id="2659">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="fontWeight">normal</property>
+                                                    <property name="color">#000000</property>
+                                                    <structure name="dateTimeFormat">
+                                                        <property name="category">Custom</property>
+                                                        <property name="pattern">dd/MM/yyyy</property>
+                                                    </structure>
+                                                    <list-property name="boundDataColumns">
+                                                        <structure>
+                                                            <property name="name">startdate</property>
+                                                            <expression name="expression">params["startDate"].value</expression>
+                                                            <property name="dataType">date-time</property>
+                                                        </structure>
+                                                    </list-property>
+                                                    <property name="resultSetColumn">startdate</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="2545">
+                                            <cell id="2546">
+                                                <label id="2628">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="fontWeight">normal</property>
+                                                    <property name="color">#000000</property>
+                                                    <property name="paddingTop">5pt</property>
+                                                    <property name="textAlign">left</property>
+                                                    <text-property name="text">Bitiş Tarihi</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="2547">
+                                                <label id="2590">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="fontWeight">normal</property>
+                                                    <property name="color">#000000</property>
+                                                    <property name="paddingTop">5pt</property>
+                                                    <text-property name="text">:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="2548">
+                                                <data id="2660">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="fontWeight">normal</property>
+                                                    <property name="color">#000000</property>
+                                                    <property name="paddingTop">5pt</property>
+                                                    <structure name="dateTimeFormat">
+                                                        <property name="category">Custom</property>
+                                                        <property name="pattern">dd/MM/yyyy</property>
+                                                    </structure>
+                                                    <list-property name="boundDataColumns">
+                                                        <structure>
+                                                            <property name="name">enddate</property>
+                                                            <expression name="expression">params["endDate"].value</expression>
+                                                            <property name="dataType">date-time</property>
+                                                        </structure>
+                                                    </list-property>
+                                                    <property name="resultSetColumn">enddate</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+            </header>
+            <group id="3586">
+                <property name="groupName">classStructureIDGroup</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["hierarchypath"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["hierarchypath"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+                <header>
+                    <row id="3587">
+                        <property name="backgroundColor">#7E90BF</property>
+                        <cell id="3588">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <label id="3268">
+                                <property name="fontSize">10pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="color">#FFFFFF</property>
+                                <property name="paddingTop">1pt</property>
+                                <property name="paddingBottom">1pt</property>
+                                <property name="textAlign">left</property>
+                                <text-property name="text">Arıza Sınıf Kodu :</text-property>
+                            </label>
+                        </cell>
+                        <cell id="3609">
+                            <property name="colSpan">4</property>
+                            <property name="rowSpan">1</property>
+                            <data id="3617">
+                                <property name="fontSize">10pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="color">#FFFFFF</property>
+                                <property name="textAlign">left</property>
+                                <property name="resultSetColumn">cldescription</property>
+                            </data>
+                        </cell>
+                    </row>
+                    <row id="3600">
+                        <cell id="3601">
+                            <property name="borderBottomColor">#000000</property>
+                            <property name="borderBottomStyle">solid</property>
+                            <property name="borderBottomWidth">1px</property>
+                            <label id="3215">
+                                <property name="fontSize">10pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="paddingTop">2pt</property>
+                                <property name="paddingBottom">2pt</property>
+                                <property name="textAlign">left</property>
+                                <text-property name="text">İş Emri No</text-property>
+                            </label>
+                        </cell>
+                        <cell id="3602">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <property name="borderBottomColor">#000000</property>
+                            <property name="borderBottomStyle">solid</property>
+                            <property name="borderBottomWidth">1px</property>
+                            <label id="3217">
+                                <property name="fontSize">10pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="paddingTop">2pt</property>
+                                <property name="paddingBottom">2pt</property>
+                                <property name="textAlign">left</property>
+                                <text-property name="text">İş Emri Açıklaması</text-property>
+                            </label>
+                        </cell>
+                        <cell id="3603">
+                            <property name="borderBottomColor">#000000</property>
+                            <property name="borderBottomStyle">solid</property>
+                            <property name="borderBottomWidth">1px</property>
+                            <label id="3219">
+                                <property name="fontSize">10pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="paddingTop">2pt</property>
+                                <property name="paddingLeft">1pt</property>
+                                <property name="paddingBottom">2pt</property>
+                                <property name="textAlign">left</property>
+                                <text-property name="text">Ekipman No</text-property>
+                            </label>
+                        </cell>
+                        <cell id="3604">
+                            <property name="borderBottomColor">#000000</property>
+                            <property name="borderBottomStyle">solid</property>
+                            <property name="borderBottomWidth">1px</property>
+                            <label id="3281">
+                                <property name="fontSize">10pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="paddingTop">2pt</property>
+                                <property name="paddingBottom">2pt</property>
+                                <property name="textAlign">left</property>
+                                <text-property name="text">Summary</text-property>
+                            </label>
+                        </cell>
+                        <cell id="3605">
+                            <property name="borderBottomColor">#000000</property>
+                            <property name="borderBottomStyle">solid</property>
+                            <property name="borderBottomWidth">1px</property>
+                            <label id="3282">
+                                <property name="fontSize">10pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="paddingTop">2pt</property>
+                                <property name="paddingBottom">2pt</property>
+                                <property name="textAlign">left</property>
+                                <text-property name="text">İşin Detayları</text-property>
+                            </label>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="3593">
+                        <cell id="3594"/>
+                        <cell id="3595"/>
+                        <cell id="3612"/>
+                        <cell id="3596"/>
+                        <cell id="3597"/>
+                        <cell id="3598"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="3573">
+                    <cell id="3574">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">dotted</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="paddingBottom">2pt</property>
+                        <data id="3216">
+                            <property name="fontSize">9pt</property>
+                            <property name="paddingTop">2pt</property>
+                            <property name="textAlign">left</property>
+                            <property name="resultSetColumn">wonum</property>
+                        </data>
+                    </cell>
+                    <cell id="3575">
+                        <property name="colSpan">2</property>
+                        <property name="rowSpan">1</property>
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">dotted</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="paddingBottom">2pt</property>
+                        <data id="3218">
+                            <property name="fontSize">9pt</property>
+                            <property name="textAlign">left</property>
+                            <property name="resultSetColumn">description</property>
+                        </data>
+                    </cell>
+                    <cell id="3576">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">dotted</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="paddingBottom">2pt</property>
+                        <data id="3220">
+                            <property name="fontSize">9pt</property>
+                            <property name="paddingLeft">1pt</property>
+                            <property name="textAlign">left</property>
+                            <property name="resultSetColumn">assetnum</property>
+                        </data>
+                    </cell>
+                    <cell id="3577">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">dotted</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="paddingBottom">2pt</property>
+                        <data id="3284">
+                            <property name="fontSize">9pt</property>
+                            <property name="textAlign">left</property>
+                            <property name="resultSetColumn">summary</property>
+                        </data>
+                    </cell>
+                    <cell id="3578">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">dotted</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="paddingBottom">2pt</property>
+                        <data id="3286">
+                            <property name="fontSize">9pt</property>
+                            <property name="textAlign">left</property>
+                            <property name="resultSetColumn">wldescription</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">bplogo.gif</property>
+            <property name="data">
+                R0lGODdhNgBGAPcAAP///5HVpySoPMzr1mrGhwGdM7Dhv+P06UO2Z1SwJLXHEoi8GvXmEf31lvzuUAGU
+                IwCQIACcEoCEErXGEPTmEPzxlPXkEP771fzkEGLEgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                ACwAAAAANgBGAAAI/wABCBxIsKDBgwYDCBiAsKHDhxABECjAMKLFiwgnVsTIEaNGAAYCbARwQOABAyM7
+                XpyoUICAAghKGihAYGKBAgtVerwZQOBEBCBvIhhwIADOkjojTiRAEAHFmQIIskyqtIABqQUCzGQ6cABM
+                qhA/DmS5leCBr2AdTrw61mrZrmjTZqRJ8OXJuACMcpV70Cbbn0GtmrTLd+5ElzBl4hSAwGnWwggHXC1K
+                YOPWAY0rQ+74drPOzp450w2ddy9phAeQmn2ZkmRryEbZtsULYADj0wAc9xTo9aZggTNpb3Y82qZQgUZv
+                ClC9+cBL35V9+w6Q3LdsqgYIXO8tPYH0m96/7/8Grr1jbwGag0tXEB68gufTSRJ4Pv6ic+kIjLtnr1wB
+                f+k1fXfdRcSBtwB8C/inwE0JKrCAbwIs0J5vzBH4XQL+hacgexgq+FKHEwpnUXX7OSjAhihyqGCIQKnE
+                XYkpMsBAiiuKFxFmjeWIQAIJPHfihjP6J6OCQ9a4WAI65jigQAUyuGKHRAZZpIxBZphAgw9+t9xB6kGI
+                YpEKUCmmmESiGOJjCDVZQINCTjnmmGGC6d93ODlkm5ZfvtmAjA048KaZdC5ZUAAPQBDBoRFIMMGicTJA
+                QQUWMHABBhQAQAEFDVBApQKLTiABohFAAEEGDRWFgEsxitknAw4A0MAFFzT/AECrezqwJ5koupTfSAY0
+                +SOQVLZ6gQMXFFSsrbPiuiF8QgVwwIvS/RqljMIWa2yxt8qZIZ03XXUnnRG2yWqsyDbU56vZesgtmrUx
+                a+CbxF6U7aY9ajngAcZBKS6Vrz4076ZGJoaQQjTG2e9FsWq7omkFHXAqm8Da2sDB5k7sZ5UbHjgUl/CF
+                uy+1sj407J/+HShdfXmtu4CeAlmLkLUjk+nuTXvp192XtvoZ8susrgoot0BB65u++8pK8UCxAnCBsgpm
+                SWdPpt6cJ7WzVqt00g4QO2+KEyLgbMMBzJdqsHzOCqusxC7NKpxm7uqQcy7xeGWVYo7saqvjXkw3hz26
+                5PRaQTavCSyrF488ctYAq4vfQ13C2Kiq1L4pp9PQlTrz1B+TrO3Mf5MII8Rxittowf8tbtB93yUoIarA
+                thnlhj1e6SC3rZ1kwO24MyttmK+7HjBOWuF++98FNa4v6BhDHCLDK11YI4oQs176cSo1iaHJgmcorW8J
+                hhiVSu7yKHWWHVIuwJnEl4pfSHguyP30NGEmnaCM46RZYNJhr5z+PPGmELsXGUBKzhItNZ1KQAURIF+Y
+                dRV3EYVZ6QOLYwTAFhJxBXXfI81hRgKfjThMRIXpVYWCw7ya4KYhp6rQCR8iGb4EBAA7AAAsAAAAAAA2
+            </property>
+        </structure>
+    </list-property>
+</report>

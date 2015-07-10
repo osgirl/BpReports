@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <list-property name="configVars">
+        <structure>
+            <property name="name">__isdisplay__where_25_0</property>
+            <property name="value">1=1</property>
+        </structure>
+        <structure>
+            <property name="name">__isnull_731_1</property>
+            <property name="value">appname_731</property>
+        </structure>
+        <structure>
+            <property name="name">appname_731_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__startDate_3177_2</property>
+            <property name="value">2009-05-01 00:01:00</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__endDate_3178_3</property>
+            <property name="value">2011-12-31 23:59:00</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__site_3179_4</property>
+            <property name="value">DDT-1</property>
+        </structure>
+        <structure>
+            <property name="name">site_3179_5</property>
+            <property name="value">DDT-1</property>
+        </structure>
+        <structure>
+            <property name="name">site_3179_type_</property>
+            <property name="value">string</property>
+        </structure>
+        <structure>
+            <property name="name">startDate_3177_6</property>
+            <property name="value">2009-05-01 00:01:00.000</property>
+        </structure>
+        <structure>
+            <property name="name">startDate_3177_type_</property>
+            <property name="value">dateTime</property>
+        </structure>
+        <structure>
+            <property name="name">endDate_3178_7</property>
+            <property name="value">2011-12-31 23:59:00.000</property>
+        </structure>
+        <structure>
+            <property name="name">endDate_3178_type_</property>
+            <property name="value">dateTime</property>
+        </structure>
+        <structure>
+            <property name="name">where_25_8</property>
+            <property name="value">1=1</property>
+        </structure>
+        <structure>
+            <property name="name">where_25_type_</property>
+            <property name="value">string</property>
+        </structure>
+    </list-property>
+</report>
