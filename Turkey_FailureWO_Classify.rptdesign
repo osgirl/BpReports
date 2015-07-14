@@ -279,19 +279,37 @@ siteDataSet.open();
 
 var sqlText = new String();
 
-sqlText = " select workorder.wonum, workorder.description, workorder.assetnum, workorder.classstructureid, workorder.siteid,  "
+
+sqlText = "select workorder.wonum, workorder.description, workorder.assetnum, workorder.classstructureid, workorder.siteid, "
 + " s.description siteDesc,"
 + " wl.description summary,"
-+ " ld.ldtext wldescription "
-+ " from workorder, site s, worklog wl, longdescription ld"
++ " ld.ldtext wldescription"
++ " from workorder right outer join site s on workorder.siteid = s.siteid, worklog wl, longdescription ld"
 + " where " +params["where"] 
-+ " and workorder.worktype='100' and workorder.wopriority=10 and workorder.parent is null and workorder.orgid='YARORG'"
++ " and workorder.wonum = wl.RECORDKEY  and workorder.siteid = wl.SITEID "
++ " and wl.clientviewable = 1"
 + " and workorder.targcompdate <= " + MXReportSqlFormat.getEndDayTimestampFunction(params["endDate"])
 + " and workorder.targstartdate >= " + MXReportSqlFormat.getStartDayTimestampFunction(params["startDate"])
-+ " and workorder.siteid = s.siteid (+)"
-+ " and workorder.wonum = wl.RECORDKEY (+) and workorder.siteid = wl.SITEID (+)"
-+ " and 1 = wl.clientviewable (+) and wl.WORKLOGID = ld.ldkey (+)"
++ " and workorder.worktype='100' and workorder.wopriority=10"
++ " and (workorder.parent is null OR workorder.parent = 'NULL' or workorder.parent = '')"
++ " and workorder.orgid='YARORG'"
++ " and wl.worklogid = ld.ldkey"
 ;
+
+
+//sqlText = " select workorder.wonum, workorder.description, workorder.assetnum, workorder.classstructureid, workorder.siteid,  "
+//+ " s.description siteDesc,"
+//+ " wl.description summary,"
+//+ " ld.ldtext wldescription "
+//+ " from workorder, site s, worklog wl, longdescription ld"
+//+ " where " +params["where"] 
+//+ " and workorder.worktype='100' and workorder.wopriority=10 and workorder.parent is null and workorder.orgid='YARORG'"
+//+ " and workorder.targcompdate <= " + MXReportSqlFormat.getEndDayTimestampFunction(params["endDate"])
+//+ " and workorder.targstartdate >= " + MXReportSqlFormat.getStartDayTimestampFunction(params["startDate"])
+//+ " and workorder.siteid = s.siteid (+)"
+//+ " and workorder.wonum = wl.RECORDKEY (+) and workorder.siteid = wl.SITEID (+)"
+//+ " and 1 = wl.clientviewable (+) and wl.WORKLOGID = ld.ldkey (+)"
+//;
 
 siteDataSet.setQuery(sqlText);
 

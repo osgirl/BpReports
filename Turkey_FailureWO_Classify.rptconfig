@@ -15,19 +15,19 @@
         </structure>
         <structure>
             <property name="name">__isdisplay__startDate_3177_2</property>
-            <property name="value">2009-05-01 00:01:00</property>
+            <property name="value">01/01/2015</property>
         </structure>
         <structure>
             <property name="name">__isdisplay__endDate_3178_3</property>
-            <property name="value">2011-12-31 23:59:00</property>
+            <property name="value">04/30/2015</property>
         </structure>
         <structure>
             <property name="name">__isdisplay__site_3179_4</property>
-            <property name="value">DDT-1</property>
+            <property name="value">YARIMCA</property>
         </structure>
         <structure>
             <property name="name">site_3179_5</property>
-            <property name="value">DDT-1</property>
+            <property name="value">YARIMCA</property>
         </structure>
         <structure>
             <property name="name">site_3179_type_</property>
@@ -35,7 +35,7 @@
         </structure>
         <structure>
             <property name="name">startDate_3177_6</property>
-            <property name="value">2009-05-01 00:01:00.000</property>
+            <property name="value">2015-01-01 00:00:00.000</property>
         </structure>
         <structure>
             <property name="name">startDate_3177_type_</property>
@@ -43,7 +43,7 @@
         </structure>
         <structure>
             <property name="name">endDate_3178_7</property>
-            <property name="value">2011-12-31 23:59:00.000</property>
+            <property name="value">2015-04-30 00:00:00.000</property>
         </structure>
         <structure>
             <property name="name">endDate_3178_type_</property>
