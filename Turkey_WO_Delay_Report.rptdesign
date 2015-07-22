@@ -279,11 +279,13 @@ if(params["siteid"].value) {
 	params["where"]+= " and " + MXReportSqlFormat.createParamWhereClause("workorder.siteid", params["siteid"].toUpperCase());
 }
 
-sqlText = " select workorder.wonum, workorder.description, "
-+ " (select top 1 jobplan.priority from jobplan, workorder where jobplan.jpnum=workorder.jpnum and ((jobplan.orgid=workorder.orgid and jobplan.siteid=workorder.siteid) or (jobplan.orgid = workorder.orgid and jobplan.siteid is null) or (jobplan.orgid is null and jobplan.siteid is null)) ) as jpriority, "
-+ " (select top 1 site.description from site, workorder where site.siteid=workorder.siteid) as siteid , "
+
+
+sqlText = " SELECT workorder.wonum,  workorder.description, "
++ " jobplan.priority as jpriority, "
++ " site.description as siteid , "
 + " workorder.targstartdate,workorder.targcompdate,workorder.actfinish, Convert(int, convert(datetime,workorder.actfinish)) - Convert(int, Convert(datetime,workorder.targcompdate)) as delay "
-+ " from workorder "
++ " from  workorder right outer join jobplan on workorder.jpnum = jobplan.jpnum right outer join site on workorder.siteid = site.siteid "
 + " where " + params["where"]
 + " and workorder.orgid='YARORG' and (workorder.parent = 'NULL' or workorder.parent is null) and workorder.jpnum is not null and workorder.targstartdate is not null and workorder.targcompdate is not null "
 + " and workorder.targcompdate <= " + MXReportSqlFormat.getEndDayTimestampFunction(params["enddate"])
